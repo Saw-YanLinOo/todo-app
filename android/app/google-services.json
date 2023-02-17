@@ -29,6 +29,13 @@
             {
               "client_id": "443800118179-obccaki1d3nn0oqg37ilul5k2qpk1v7t.apps.googleusercontent.com",
               "client_type": 3
+            },
+            {
+              "client_id": "443800118179-1ok0b8rrtep7m3j1cpg5me32qd20ne8t.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.yanyan.todoApp"
+              }
             }
           ]
         }
