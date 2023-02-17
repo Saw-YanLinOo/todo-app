@@ -1,72 +1,92 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:todo_app/bloc/todo_bloc.dart';
+import 'package:todo_app/data/vos/todo_vo.dart';
 
-class ToDoScreen extends StatefulWidget {
+class ToDoScreen extends StatelessWidget {
   const ToDoScreen({Key? key}) : super(key: key);
 
   @override
-  State<ToDoScreen> createState() => _ToDoScreenState();
+  Widget build(BuildContext context) {
+    final controller = TextEditingController();
+
+    return ChangeNotifierProvider(
+      create: (context) => TodoBloc(),
+      child: Scaffold(
+        appBar: AppBar(
+          title: const Text('ToDo List'),
+        ),
+        body: Column(
+          children: [
+            DescriptionSection(controller: controller),
+            const SizedBox(
+              height: 10,
+            ),
+            Selector<TodoBloc, List<TodoVo>>(
+                selector: (context, bloc) => bloc.todoList,
+                builder: (context, todoList, child) {
+                  return Expanded(
+                    child: ListView.builder(
+                        physics: const BouncingScrollPhysics(),
+                        itemCount: todoList.length,
+                        itemBuilder: (context, index) {
+                          var todo = todoList[index];
+
+                          return Card(
+                            child: Padding(
+                              padding: const EdgeInsets.all(16),
+                              child: Text(todo.description ?? ''),
+                            ),
+                          );
+                        }),
+                  );
+                }),
+          ],
+        ),
+      ),
+    );
+  }
 }
 
-class _ToDoScreenState extends State<ToDoScreen> {
-  List<String> todoList = ['အိပ်သည်', 'စားမယ်'];
-  TextEditingController controller = TextEditingController();
+class DescriptionSection extends StatelessWidget {
+  const DescriptionSection({
+    super.key,
+    required this.controller,
+  });
 
-  void addToDo() {
-    todoList.add(controller.text);
-    controller.clear();
-    setState(() {});
-  }
+  final TextEditingController controller;
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('ToDo List'),
-      ),
-      body: Column(
-        children: [
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Row(
-              children: [
-                Expanded(
-                  child: TextField(
-                    controller: controller,
-                    decoration: InputDecoration(
-                      hintText: 'Enter ToDo',
-                      labelText: 'ToDo',
-                    ),
-                  ),
+    return Consumer<TodoBloc>(builder: (context, bloc, child) {
+      return Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Row(
+          children: [
+            Expanded(
+              child: TextField(
+                controller: controller,
+                decoration: InputDecoration(
+                  hintText: 'Enter ToDo',
+                  labelText: 'ToDo',
                 ),
-                SizedBox(
-                  width: 16,
-                ),
-                ElevatedButton(
-                  onPressed: addToDo,
-                  child: Text('Add'),
-                ),
-              ],
+              ),
             ),
-          ),
-          SizedBox(
-            height: 10,
-          ),
-          Expanded(
-            child: ListView.builder(
-                itemCount: todoList.length,
-                itemBuilder: (context, index) {
-                  var todo = todoList[index];
-
-                  return Card(
-                    child: Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Text(todo),
-                    ),
-                  );
-                }),
-          ),
-        ],
-      ),
-    );
+            const SizedBox(
+              width: 16,
+            ),
+            ElevatedButton(
+              onPressed: () {
+                bloc
+                    .addTodo(controller.text)
+                    .whenComplete(() => controller.clear())
+                    .onError((error, stackTrace) {});
+              },
+              child: const Text('Add'),
+            ),
+          ],
+        ),
+      );
+    });
   }
 }
