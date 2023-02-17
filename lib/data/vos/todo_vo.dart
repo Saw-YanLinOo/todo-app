@@ -7,6 +7,8 @@ part 'todo_vo.g.dart';
 class TodoVo {
   String? id;
   String? description;
+
+  @JsonKey(name: "created_at")
   DateTime? dateTime;
   TodoVo({
     this.id,
@@ -18,5 +20,6 @@ class TodoVo {
   Map<String, dynamic> toJson() => _$TodoVoToJson(this);
 
   @override
-  String toString() => 'TodoVo(id: $id, description: $description, dateTime: $dateTime)';
+  String toString() =>
+      'TodoVo(id: $id, description: $description, dateTime: $dateTime)';
 }

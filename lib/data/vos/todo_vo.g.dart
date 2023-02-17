@@ -9,13 +9,13 @@ part of 'todo_vo.dart';
 TodoVo _$TodoVoFromJson(Map<String, dynamic> json) => TodoVo(
       id: json['id'] as String?,
       description: json['description'] as String?,
-      dateTime: json['dateTime'] == null
+      dateTime: json['created_at'] == null
           ? null
-          : DateTime.parse(json['dateTime'] as String),
+          : DateTime.parse(json['created_at'] as String),
     );
 
 Map<String, dynamic> _$TodoVoToJson(TodoVo instance) => <String, dynamic>{
       'id': instance.id,
       'description': instance.description,
-      'dateTime': instance.dateTime?.toIso8601String(),
+      'created_at': instance.dateTime?.toIso8601String(),
     };
