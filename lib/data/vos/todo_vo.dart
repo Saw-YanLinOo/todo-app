@@ -22,4 +22,16 @@ class TodoVo {
   @override
   String toString() =>
       'TodoVo(id: $id, description: $description, dateTime: $dateTime)';
+
+  @override
+  bool operator ==(covariant TodoVo other) {
+    if (identical(this, other)) return true;
+
+    return other.id == id &&
+        other.description == description &&
+        other.dateTime == dateTime;
+  }
+
+  @override
+  int get hashCode => id.hashCode ^ description.hashCode ^ dateTime.hashCode;
 }

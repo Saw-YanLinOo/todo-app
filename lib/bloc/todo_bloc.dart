@@ -10,7 +10,11 @@ class TodoBloc extends ChangeNotifier {
   //Model
   TodoModel _todoModel = TodoModelImpl();
 
-  TodoBloc() {
+  TodoBloc({TodoModel? todoModel}) {
+    if (todoModel != null) {
+      _todoModel = todoModel;
+    }
+
     _todoModel.getTodo().listen((event) {
       todoList = event;
       notifyListeners();

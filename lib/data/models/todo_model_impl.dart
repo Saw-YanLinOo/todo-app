@@ -1,6 +1,5 @@
 import 'package:todo_app/data/models/todo_model.dart';
 import 'package:todo_app/data/vos/todo_vo.dart';
-import 'package:todo_app/network/dataagent/cloudfirebase_data_agent_impl.dart';
 import 'package:todo_app/network/dataagent/supabase_data_agent_impl.dart';
 import 'package:todo_app/network/dataagent/todo_data_agent.dart';
 import 'package:uuid/uuid.dart';
@@ -10,8 +9,14 @@ class TodoModelImpl extends TodoModel {
   static final TodoModelImpl _singleton = TodoModelImpl.singleton();
   factory TodoModelImpl() => _singleton;
 
+  // Data Agent
   // final ToDoDataAgent dataAgent = CloudfirebaseDataAgentImpl();
-  final ToDoDataAgent dataAgent = SupabaseDataAgentImpl();
+  late ToDoDataAgent dataAgent = SupabaseDataAgentImpl();
+
+  //For testing
+  void setDataAgent(ToDoDataAgent toDoDataAgent) {
+    dataAgent = toDoDataAgent;
+  }
 
   @override
   Stream<List<TodoVo>> getTodo() {
