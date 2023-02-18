@@ -3,8 +3,8 @@ import 'package:provider/provider.dart';
 import 'package:todo_app/bloc/todo_bloc.dart';
 import 'package:todo_app/data/vos/todo_vo.dart';
 
-class ToDoScreen extends StatelessWidget {
-  const ToDoScreen({Key? key}) : super(key: key);
+class ToDoPage extends StatelessWidget {
+  const ToDoPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
