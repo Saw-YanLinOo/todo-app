@@ -1,0 +1,3 @@
+const String SUPABASE_URL = 'https://ovsmpxwynfeusamdxtvl.supabase.co';
+const String SUPABASE_ANON_KEY =
+    'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im92c21weHd5bmZldXNhbWR4dHZsIiwicm9sZSI6ImFub24iLCJpYXQiOjE2NzY2Mzk1MjMsImV4cCI6MTk5MjIxNTUyM30.yZxKCbSNTTobJlOx73xJlUjpflrYq6PaF5rzm4yLR88';
